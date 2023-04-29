@@ -1,13 +1,13 @@
 "use strict";
 
 function GameBoard() {
-    rows = 3;
-    cols = 3;
-    board = [];
+    const rows = 3;
+    const cols = 3;
+    let board = [];
 
-    for (i = 0; i < rows.length + 1; i++) {
-        row = [];
-        for (j = 0; j < cols.length + 1; j++) {
+    for (let i = 0; i < rows; i++) {
+        let row = [];
+        for (let j = 0; j < cols; j++) {
             row.push(0);
         }
         board.push(row);
@@ -20,7 +20,7 @@ function GameBoard() {
 
 
 function Cell() {
-    value = 0;
+    const value = 0;
 
     const getValue = () => value;
 
@@ -30,3 +30,7 @@ function Cell() {
 
     return { getValue, setValue };
 }
+
+
+const board = GameBoard();
+console.log(board.getBoard());
