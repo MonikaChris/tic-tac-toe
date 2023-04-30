@@ -3,10 +3,10 @@
 function GameBoard() {
     const rows = 3;
     const cols = 3;
-    let board = [];
+    const board = [];
 
     for (let i = 0; i < rows; i++) {
-        let row = [];
+        const row = [];
         for (let j = 0; j < cols; j++) {
             row.push(0);
         }
@@ -15,7 +15,16 @@ function GameBoard() {
 
     const getBoard = () => board;
 
-    return { getBoard };
+    const move = (player, row, col) => {
+        if (board[row][col] === 0) {
+            board[row][col] = player;
+        }
+
+        else return "Invalid Move";
+
+    }
+
+    return { getBoard, move };
 }
 
 
@@ -30,6 +39,12 @@ function Cell() {
 
     return { getValue, setValue };
 }
+
+
+function Controller(){
+
+}
+
 
 
 const board = GameBoard();
