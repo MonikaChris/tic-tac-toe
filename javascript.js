@@ -18,9 +18,10 @@ function GameBoard() {
     const move = (player, row, col) => {
         if (board[row][col] === 0) {
             board[row][col] = player;
+            return true;
         }
 
-        else return "Invalid Move";
+        else return false;
 
     }
 
@@ -42,7 +43,58 @@ function Cell() {
 
 
 function Controller(){
+    const player1 = "X";
+    const player2 = "O";
+    const winner = false;
 
+    const playRound = () => {
+        move(player1);
+        if (isWinner(board)) {
+            winner = true;
+            return;
+        }
+        move(player2);
+        if (isWinner(board)) {
+            winner = true;
+        }
+    }
+
+    const move = (player) => {
+        displayTurn(player);
+        { row, col } = getMove();
+
+        while (!board.move(row, col)) {
+            displayTurn(player);
+        }    
+    }
+
+    const isWinner = (board) => {
+        //Check rows and cols
+        for(let i = 0; i < board.rows; i++) {
+            row = [];
+            col = [];
+            for(let j = 0; j < board.cols; j++){
+                row.push(board[i][j]);
+                col.push(board[j][i]);
+            }
+            if (hasWin(row)) return true;
+            if (hasWin(col)) return true;
+        }
+
+    }
+
+    //Helper function - check if passed in row contains all X's or all O's
+    const hasWin = (arr) => {
+        elem = arr[0];
+
+        if (elem === 0) return false;
+
+        for(let i = 1; i < arr.length; i++) {
+            if (arr[i] !== elem) return false;
+        }
+
+        return true;
+    }
 }
 
 
