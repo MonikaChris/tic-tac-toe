@@ -69,10 +69,14 @@ function Controller(){
     }
 
     const isWinner = (board) => {
-        //Check rows and cols
+        //Check rows, cols, 2 diagnols
+        diag1 = [];
+        diag2 = [];
         for(let i = 0; i < board.rows; i++) {
             row = [];
             col = [];
+            diag1.push(board[i][i]);
+            diag2.push(board[i][board.row - i]);
             for(let j = 0; j < board.cols; j++){
                 row.push(board[i][j]);
                 col.push(board[j][i]);
@@ -80,7 +84,10 @@ function Controller(){
             if (hasWin(row)) return true;
             if (hasWin(col)) return true;
         }
+        if (hasWin(diag1)) return true;
+        if (hasWin(diag2)) return true;
 
+        return false;
     }
 
     //Helper function - check if passed in row contains all X's or all O's
