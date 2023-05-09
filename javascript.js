@@ -91,6 +91,8 @@ function Controller(){
     
         return true;
     }
+
+    return { switchPlayerTurn, getActivePlayer, playRound }
 }
 
 
