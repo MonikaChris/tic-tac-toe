@@ -25,6 +25,17 @@ function GameBoard() {
 
     }
 
+    const drawBoard = () => {
+        const boardDiv = document.querySelector('.board');
+
+        for (let i = 0; i < rows; i++) {
+            for (let j = 0; j < cols; j++) {
+                let cell = createElement('div');
+                boardDiv.appendChild(cell);
+            }
+        }
+    }
+
     return { getBoard, move };
 }
 
@@ -94,6 +105,7 @@ function Controller(){
 
     return { switchPlayerTurn, getActivePlayer, playRound }
 }
+
 
 
 
