@@ -26,17 +26,18 @@ function GameBoard() {
     }
 
     const drawBoard = () => {
-        const boardDiv = document.querySelector('.board');
+        const boardDiv = document.querySelector('#board');
 
         for (let i = 0; i < rows; i++) {
             for (let j = 0; j < cols; j++) {
-                let cell = createElement('div');
+                const cell = document.createElement('div');
+                cell.textContent = board[i][j]
                 boardDiv.appendChild(cell);
             }
         }
     }
 
-    return { getBoard, move };
+    return { getBoard, move, drawBoard };
 }
 
 function Controller(){
@@ -112,10 +113,11 @@ function Controller(){
 
 
 const board = GameBoard();
-console.log(board.getBoard());
-board.move('X', 0, 0);
-board.move('X', 1, 0);
-board.move('X', 0, 1);
-console.log(board.getBoard());
-console.log(isWinner(board.getBoard()));
+board.drawBoard();
+// console.log(board.getBoard());
+// board.move('X', 0, 0);
+// board.move('X', 1, 0);
+// board.move('X', 0, 1);
+// console.log(board.getBoard());
+// console.log(isWinner(board.getBoard()));
 //console.log(isWinner([['X', 0, 0], ['X', 0, 0], [0, 'X', 0]]));
