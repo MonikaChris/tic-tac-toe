@@ -35,6 +35,10 @@ function GameBoard() {
                 boardDiv.appendChild(cell);
             }
         }
+
+        //Format board
+        boardDiv.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+        boardDiv.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
     }
 
     return { getBoard, move, drawBoard };
