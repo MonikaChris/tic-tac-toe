@@ -32,6 +32,21 @@ function GameBoard() {
             for (let j = 0; j < cols; j++) {
                 const cell = document.createElement('div');
                 cell.textContent = board[i][j]
+                cell.className = 'cell';
+
+                if (i == 0) {
+                    cell.classList.add('top-border');
+                }
+                if (i == rows - 1) {
+                    cell.classList.add('bottom-border');
+                }
+                if (j == 0) {
+                    cell.classList.add('left-border');
+                }
+                if (j == cols - 1) {
+                    cell.classList.add('right-border');
+                }
+
                 boardDiv.appendChild(cell);
             }
         }
