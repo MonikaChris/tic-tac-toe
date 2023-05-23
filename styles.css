@@ -1,27 +1,37 @@
+body {
+    display:flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}   
+
 #board {
     display: grid;
 }
 
 .cell {
     border: 2px solid black;
-    height: 4rem;
+    height: 10rem;
+    width: 10rem;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.top-border {
+.top-cell {
     border-top: 2px solid white;
 }
 
-.bottom-border {
+.bottom-cell {
     border-bottom: 2px solid white;
 }
 
-.left-border {
+.left-cell {
     border-left: 2px solid white;
+    /* margin-left: 4rem; */
 }
 
-.right-border {
+.right-cell {
     border-right: 2px solid white;
+    /* margin-right: 4rem; */
 }

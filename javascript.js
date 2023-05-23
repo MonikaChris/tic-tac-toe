@@ -35,16 +35,16 @@ function GameBoard() {
                 cell.className = 'cell';
 
                 if (i == 0) {
-                    cell.classList.add('top-border');
+                    cell.classList.add('top-cell');
                 }
                 if (i == rows - 1) {
-                    cell.classList.add('bottom-border');
+                    cell.classList.add('bottom-cell');
                 }
                 if (j == 0) {
-                    cell.classList.add('left-border');
+                    cell.classList.add('left-cell');
                 }
                 if (j == cols - 1) {
-                    cell.classList.add('right-border');
+                    cell.classList.add('right-cell');
                 }
 
                 boardDiv.appendChild(cell);
