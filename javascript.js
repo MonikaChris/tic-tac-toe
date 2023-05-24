@@ -59,6 +59,18 @@ function GameBoard() {
     return { getBoard, move, drawBoard };
 }
 
+function Cell() {
+    let value = 0;
+
+    const addToken = (player) => {
+        value = player;
+    }
+
+    const getValue = () => value;
+
+    return { addToken, getValue };
+}
+
 function Controller(){
     const player1 = "X";
     const player2 = "O";
