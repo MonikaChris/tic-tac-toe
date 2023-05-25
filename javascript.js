@@ -22,41 +22,9 @@ function GameBoard() {
         }
 
         else return false;
-
     }
-
-    const drawBoard = () => {
-        const boardDiv = document.querySelector('#board');
-
-        for (let i = 0; i < rows; i++) {
-            for (let j = 0; j < cols; j++) {
-                const cell = document.createElement('div');
-                cell.textContent = board[i][j]
-                cell.className = 'cell';
-
-                if (i == 0) {
-                    cell.classList.add('top-cell');
-                }
-                if (i == rows - 1) {
-                    cell.classList.add('bottom-cell');
-                }
-                if (j == 0) {
-                    cell.classList.add('left-cell');
-                }
-                if (j == cols - 1) {
-                    cell.classList.add('right-cell');
-                }
-
-                boardDiv.appendChild(cell);
-            }
-        }
-
-        //Format board
-        boardDiv.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
-        boardDiv.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
-    }
-
-    return { getBoard, move, drawBoard };
+    
+    return { getBoard, move };
 }
 
 function Cell() {
@@ -96,7 +64,6 @@ function GameController(){
         else{
             switchPlayerTurn();
         }
-
     }
 
     const isWinner = (board) => {
@@ -122,7 +89,7 @@ function GameController(){
         return false;
     }
     
-    //Helper function - check if passed in row contains all X's or all O's
+    //isWinner helper function - check if passed in row contains all X's or all O's
     const hasWin = (arr) => {
         const elem = arr[0];
     
@@ -135,31 +102,72 @@ function GameController(){
         return true;
     }
 
-    return { switchPlayerTurn, getActivePlayer, playRound }
+    return { switchPlayerTurn, getActivePlayer, playRound, getBoard: board.getBoard }
 }
+
 
 function screenController() {
-    const game = GameController();
+    //Get html elements
     const playerTurnDiv = document.querySelector('#turn');
     const boardDiv = document.querySelector('#board');
-}
 
-const updateScreen = () => {
-    //clear board
-    boardDiv.textContent = "";
-
-    //get current board and player
+    //Get game data
+    const game = GameController();
     const board = game.getBoard();
-    const activePlayer = game.getActivePlayer();
+    let activePlayer = game.getActivePlayer();
+
+
+    const updateScreen = () => {
+        //clear board
+        boardDiv.textContent = "";
+
+        //Display current player
+        playerTurnDiv.textContent = `${activePlayer.name}'s turn...`;
+
+        displayBoard();
+    }
+
+    const displayBoard = () => {
+        board.forEach((row) => {
+        row.forEach((cell, idx) => {
+            const cellButton = document.createElement("button");
+            cellButton.dataset.row = row;
+            cellButton.dataset.col = idx;
+            cellButton.textContent = cell.getValue();
+            cellButton.addEventListener("click", clickHandlerCell);
+            cell.className = 'cell';
+            
+            //Border lines
+            if (row == 0) {
+                cellButton.classList.add('top-cell');
+            }
+            if (row == board.rows - 1) {
+                cellButton.classList.add('bottom-cell');
+            }
+            if (idx == 0) {
+                cellButton.classList.add('left-cell');
+            }
+            if (idx == board.cols - 1) {
+                cellButton.classList.add('right-cell');
+            }
+            
+            boardDiv.appendChild(cellButton);
+            })
+        })
+
+        //Format board
+        boardDiv.style.gridTemplateColumns = `repeat(${board.cols}, 1fr)`;
+        boardDiv.style.gridTemplateRows = `repeat(${board.rows}, 1fr)`;
+    }
+
+    const clickHandlerCell = (e) => {
+        const col = e.target.col;
+        const row = e.target.row;
+
+        board.playRound(row, col);
+    }
+
+    updateScreen();
 }
 
-
-const board = GameBoard();
-board.drawBoard();
-// console.log(board.getBoard());
-// board.move('X', 0, 0);
-// board.move('X', 1, 0);
-// board.move('X', 0, 1);
-// console.log(board.getBoard());
-// console.log(isWinner(board.getBoard()));
-//console.log(isWinner([['X', 0, 0], ['X', 0, 0], [0, 'X', 0]]));
+screenController();
