@@ -8,7 +8,7 @@ function GameBoard() {
     for (let i = 0; i < rows; i++) {
         const row = [];
         for (let j = 0; j < cols; j++) {
-            row.push(0);
+            row.push(Cell());
         }
         board.push(row);
     }
@@ -71,7 +71,7 @@ function Cell() {
     return { addToken, getValue };
 }
 
-function Controller(){
+function GameController(){
     const player1 = "X";
     const player2 = "O";
     const board = GameBoard();
@@ -138,9 +138,20 @@ function Controller(){
     return { switchPlayerTurn, getActivePlayer, playRound }
 }
 
+function screenController() {
+    const game = GameController();
+    const playerTurnDiv = document.querySelector('#turn');
+    const boardDiv = document.querySelector('#board');
+}
 
+const updateScreen = () => {
+    //clear board
+    boardDiv.textContent = "";
 
-
+    //get current board and player
+    const board = game.getBoard();
+    const activePlayer = game.getActivePlayer();
+}
 
 
 const board = GameBoard();
