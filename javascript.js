@@ -128,36 +128,39 @@ function screenController() {
     }
 
     const displayBoard = () => {
-        board.forEach((row) => {
-        row.forEach((cell, idx) => {
-            const cellButton = document.createElement("button");
-            cellButton.dataset.row = row;
-            cellButton.dataset.col = idx;
-            cellButton.textContent = cell.getValue();
-            cellButton.addEventListener("click", clickHandlerCell);
-            cell.className = 'cell';
-            
-            //Border lines
-            if (row == 0) {
-                cellButton.classList.add('top-cell');
+        const rows = board.length;
+        const cols = board[0].length;
+
+        for (let i = 0; i < rows; i++) {
+            for (let j=0; j < cols; j++) {
+                const cellButton = document.createElement("div");
+                cellButton.dataset.row = i;
+                cellButton.dataset.col = j;
+                cellButton.textContent = board[i][j].getValue();
+                cellButton.addEventListener("click", clickHandlerCell);
+                cellButton.className = 'cell';
+                
+                //Border lines
+                if (i == 0) {
+                    cellButton.classList.add('top-cell');
+                }
+                if (i == rows - 1) {
+                    cellButton.classList.add('bottom-cell');
+                }
+                if (j == 0) {
+                    cellButton.classList.add('left-cell');
+                }
+                if (j == cols - 1) {
+                    cellButton.classList.add('right-cell');
+                }
+                
+                boardDiv.appendChild(cellButton);
             }
-            if (row == board.rows - 1) {
-                cellButton.classList.add('bottom-cell');
-            }
-            if (idx == 0) {
-                cellButton.classList.add('left-cell');
-            }
-            if (idx == board.cols - 1) {
-                cellButton.classList.add('right-cell');
-            }
-            
-            boardDiv.appendChild(cellButton);
-            })
-        })
+        }
 
         //Format board
-        boardDiv.style.gridTemplateColumns = `repeat(${board.cols}, 1fr)`;
-        boardDiv.style.gridTemplateRows = `repeat(${board.rows}, 1fr)`;
+        boardDiv.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+        boardDiv.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
     }
 
     const clickHandlerCell = (e) => {
