@@ -70,17 +70,18 @@ function GameController(){
     }
 
     const isWinner = (board) => {
+        console.log(board);
         //Check rows, cols, 2 diagnols
         let diag1 = [];
         let diag2 = [];
         for(let i = 0; i < board.length; i++) {
             let row = [];
             let col = [];
-            diag1.push(board[i][i]);
-            diag2.push(board[i][board.length - 1 - i]);
+            diag1.push(board[i][i].getValue());
+            diag2.push(board[i][board.length - 1 - i].getValue());
             for(let j = 0; j < board[0].length; j++) {
-                row.push(board[i][j]);
-                col.push(board[j][i]);
+                row.push(board[i][j].getValue());
+                col.push(board[j][i].getValue());
             }
             if (hasWin(row)) return true;
             if (hasWin(col)) return true;
@@ -95,7 +96,7 @@ function GameController(){
     const hasWin = (arr) => {
         const elem = arr[0];
     
-        if (elem === 0) return false;
+        if (elem === "") return false;
     
         for(let i = 1; i < arr.length; i++) {
             if (arr[i] !== elem) return false;
@@ -104,7 +105,7 @@ function GameController(){
         return true;
     }
 
-    return { switchPlayerTurn, getActivePlayer, playRound, getBoard: board.getBoard }
+    return { switchPlayerTurn, getActivePlayer, playRound, getBoard: board.getBoard, isWinner }
 }
 
 
@@ -121,7 +122,11 @@ function screenController() {
         //clear board
         boardDiv.textContent = "";
 
-        //Display current player
+        //Display current player or win
+        if (game.isWinner(board)) {
+            playerTurnDiv.textContent = `${game.getActivePlayer()} Wins!`;
+            return 1;
+        }
         playerTurnDiv.textContent = `${game.getActivePlayer()}'s turn...`;
 
         displayBoard();
