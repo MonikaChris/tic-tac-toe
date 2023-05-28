@@ -54,23 +54,33 @@ function GameController(){
 
     const playRound = (row, col) => {
         if (!board.move(activePlayer, row, col)) {
-            return "Invalid move";
+            return ["Invalid move"];
         }
 
-        // if (isWinner(board)) {
-        //     return "You Win!";
-        // }
+        if (isWinner(board)) {
+            console.log("ran");
+             return ["Win", activePlayer];
+         }
 
+        if (isTie()) {
+            return ["Tie"];
+        }
+        
         switchPlayerTurn();
+            return ["Playing"];
 
-        // else{
-        //     switchPlayerTurn();
-        //     console.log('ran');
-        // }
+    }
+
+    const isTie = (board) => {
+        board.forEach(row => {
+            row.forEach(elem => {
+                if (elem.getValue() === '') return false;
+            })
+        })
+        return true;
     }
 
     const isWinner = (board) => {
-        console.log(board);
         //Check rows, cols, 2 diagnols
         let diag1 = [];
         let diag2 = [];
@@ -116,9 +126,10 @@ function screenController() {
 
     //Get game data
     const game = GameController();
-    const board = game.getBoard();
 
     const updateScreen = () => {
+        const board = game.getBoard();
+
         //clear board
         boardDiv.textContent = "";
 
@@ -129,10 +140,10 @@ function screenController() {
         }
         playerTurnDiv.textContent = `${game.getActivePlayer()}'s turn...`;
 
-        displayBoard();
+        displayBoard(board);
     }
 
-    const displayBoard = () => {
+    const displayBoard = (board) => {
         const rows = board.length;
         const cols = board[0].length;
 
@@ -172,7 +183,7 @@ function screenController() {
         const col = e.target.dataset.col;
         const row = e.target.dataset.row;
 
-        game.playRound(row, col);
+        const gameState = game.playRound(row, col);
         updateScreen();
     }
 
