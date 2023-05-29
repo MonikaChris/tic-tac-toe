@@ -54,29 +54,31 @@ function GameController(){
 
     const playRound = (row, col) => {
         if (!board.move(activePlayer, row, col)) {
-            return ["Invalid move"];
+            return "Invalid move";
         }
 
-        if (isWinner(board)) {
-            console.log("ran");
-             return ["Win", activePlayer];
+        if (isWinner(board.getBoard())) {
+            console.log(board[0][0].getValue());
+             return "Win";
          }
 
         if (isTie()) {
-            return ["Tie"];
+            return "Tie";
         }
         
         switchPlayerTurn();
-            return ["Playing"];
+            return "Playing";
 
     }
 
-    const isTie = (board) => {
-        board.forEach(row => {
-            row.forEach(elem => {
-                if (elem.getValue() === '') return false;
-            })
-        })
+    const isTie = () => {
+        const gameBoard = board.getBoard();
+
+        for (let i = 0; i < gameBoard.length; i++){
+            for (let j = 0; j < gameBoard[0].length; j++) {
+                if (gameBoard[i][j].getValue() === "") return false;
+            }
+        }
         return true;
     }
 
@@ -93,6 +95,8 @@ function GameController(){
                 row.push(board[i][j].getValue());
                 col.push(board[j][i].getValue());
             }
+            console.log(`row: ${row}`);
+            console.log(`col: ${col}`);
             if (hasWin(row)) return true;
             if (hasWin(col)) return true;
         }
@@ -120,25 +124,35 @@ function GameController(){
 
 
 function screenController() {
+    //Create game instance
+    const game = GameController();
+
+    //Game State
+    let gameState = "Playing";
+    
     //Get html elements
     const playerTurnDiv = document.querySelector('#turn');
     const boardDiv = document.querySelector('#board');
 
-    //Get game data
-    const game = GameController();
-
     const updateScreen = () => {
         const board = game.getBoard();
+        const activePlayer = game.getActivePlayer();
 
         //clear board
         boardDiv.textContent = "";
 
-        //Display current player or win
-        if (game.isWinner(board)) {
-            playerTurnDiv.textContent = `${game.getActivePlayer()} Wins!`;
-            return 1;
+        //Display current player or win/tie
+        if (gameState === 'Win') {
+            playerTurnDiv.textContent = `${activePlayer} Wins!`;
         }
-        playerTurnDiv.textContent = `${game.getActivePlayer()}'s turn...`;
+
+        else if (gameState === 'Tie') {
+            playerTurnDiv.textContent = `It's a tie!`;
+        }
+
+        else {
+            playerTurnDiv.textContent = `${activePlayer}'s turn...`;
+        }
 
         displayBoard(board);
     }
@@ -156,7 +170,7 @@ function screenController() {
                 cellButton.addEventListener("click", clickHandlerCell);
                 cellButton.className = 'cell';
                 
-                //Border lines
+                //Draw border lines
                 if (i == 0) {
                     cellButton.classList.add('top-cell');
                 }
@@ -174,7 +188,7 @@ function screenController() {
             }
         }
 
-        //Format board
+        //Format board as grid
         boardDiv.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
         boardDiv.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
     }
@@ -183,7 +197,7 @@ function screenController() {
         const col = e.target.dataset.col;
         const row = e.target.dataset.row;
 
-        const gameState = game.playRound(row, col);
+        gameState = game.playRound(row, col);
         updateScreen();
     }
 
