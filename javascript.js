@@ -58,8 +58,7 @@ function GameController(){
         }
 
         if (isWinner(board.getBoard())) {
-            console.log(board[0][0].getValue());
-             return "Win";
+            return "Win";
          }
 
         if (isTie()) {
@@ -95,8 +94,6 @@ function GameController(){
                 row.push(board[i][j].getValue());
                 col.push(board[j][i].getValue());
             }
-            console.log(`row: ${row}`);
-            console.log(`col: ${col}`);
             if (hasWin(row)) return true;
             if (hasWin(col)) return true;
         }
@@ -119,7 +116,7 @@ function GameController(){
         return true;
     }
 
-    return { switchPlayerTurn, getActivePlayer, playRound, getBoard: board.getBoard, isWinner }
+    return { switchPlayerTurn, getActivePlayer, playRound, getBoard: board.getBoard }
 }
 
 
