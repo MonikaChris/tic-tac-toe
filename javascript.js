@@ -142,7 +142,7 @@ function screenController() {
         const board = game.getBoard();
         const activePlayer = game.getActivePlayer();
 
-        //clear board
+        //clear board display
         boardDiv.textContent = "";
 
         displayBoard(board);
@@ -179,7 +179,7 @@ function screenController() {
         }
 
         if (res.toLowerCase() === "no" || res.toLowerCase() === "n") {
-            text.textContent = "Thanks for playing!"
+            playerTurnDiv.textContent = "Thanks for playing!"
         }
     }
 
