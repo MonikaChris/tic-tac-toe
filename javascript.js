@@ -23,8 +23,16 @@ function GameBoard() {
 
         else return false;
     }
+
+    const clearBoard = () => {
+        for (let i = 0; i < rows; i++) {
+            for (let j = 0; j < cols; j++) {
+                board[i][j].addToken("");
+            }
+        }
+    }
     
-    return { getBoard, move };
+    return { getBoard, move, clearBoard };
 }
 
 function Cell() {
@@ -67,7 +75,6 @@ function GameController(){
         
         switchPlayerTurn();
             return "Playing";
-
     }
 
     const isTie = () => {
@@ -85,12 +92,12 @@ function GameController(){
         //Check rows, cols, 2 diagnols
         let diag1 = [];
         let diag2 = [];
-        for(let i = 0; i < board.length; i++) {
+        for (let i = 0; i < board.length; i++) {
             let row = [];
             let col = [];
             diag1.push(board[i][i].getValue());
             diag2.push(board[i][board.length - 1 - i].getValue());
-            for(let j = 0; j < board[0].length; j++) {
+            for (let j = 0; j < board[0].length; j++) {
                 row.push(board[i][j].getValue());
                 col.push(board[j][i].getValue());
             }
@@ -116,7 +123,7 @@ function GameController(){
         return true;
     }
 
-    return { switchPlayerTurn, getActivePlayer, playRound, getBoard: board.getBoard }
+    return { switchPlayerTurn, getActivePlayer, playRound, getBoard: board.getBoard, clearBoard: board.clearBoard }
 }
 
 
@@ -138,20 +145,42 @@ function screenController() {
         //clear board
         boardDiv.textContent = "";
 
+        displayBoard(board);
+
         //Display current player or win/tie
         if (gameState === 'Win') {
             playerTurnDiv.textContent = `${activePlayer} Wins!`;
+            playAgain(board);
+            return;
         }
 
         else if (gameState === 'Tie') {
             playerTurnDiv.textContent = `It's a tie!`;
+            playAgain(board);
+            return;
         }
 
         else {
             playerTurnDiv.textContent = `${activePlayer}'s turn...`;
         }
 
-        displayBoard(board);
+    }
+
+    const playAgain = (board) => {
+        let res = prompt("Would you like to play again? Enter 'Yes' or 'No'.");
+
+        while (res.toLowerCase() !== "yes" && res.toLowerCase() !== "y" && res.toLowerCase() !== "no" && res.toLowerCase() !== "n") {
+            let res = prompt("Would you like to play again? Enter 'Yes' or 'No'.");
+        }
+
+        if (res.toLowerCase() === "yes" || res.toLowerCase() === "y") {
+            board.clearBoard();
+            updateScreen();
+        }
+
+        if (res.toLowerCase() === "no" || res.toLowerCase() === "n") {
+            text.textContent = "Thanks for playing!"
+        }
     }
 
     const displayBoard = (board) => {
