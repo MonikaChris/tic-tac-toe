@@ -169,7 +169,7 @@ function screenController() {
     const playAgain = (board) => {
         let res = prompt("Would you like to play again? Enter 'Yes' or 'No'.");
 
-        while (res.toLowerCase() !== "yes" && res.toLowerCase() !== "y" && res.toLowerCase() !== "no" && res.toLowerCase() !== "n") {
+        while (res.toLowerCase() !== null && res.toLowerCase() !== "yes" && res.toLowerCase() !== "y" && res.toLowerCase() !== "no" && res.toLowerCase() !== "n") {
             let res = prompt("Would you like to play again? Enter 'Yes' or 'No'.");
         }
 
@@ -181,6 +181,8 @@ function screenController() {
         if (res.toLowerCase() === "no" || res.toLowerCase() === "n") {
             playerTurnDiv.textContent = "Thanks for playing!"
         }
+
+        return
     }
 
     const displayBoard = (board) => {
