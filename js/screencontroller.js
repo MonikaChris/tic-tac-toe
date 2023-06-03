@@ -15,13 +15,17 @@ function screenController() {
         const board = game.getBoard();
         const activePlayer = game.getActivePlayer();
 
-        //clear board display
+        //Reset board display
         boardDiv.textContent = "";
-        console.log("ran");
+        //displayBoard(board, () => checkForWin(board, activePlayer));
         displayBoard(board);
+        setTimeout(() => checkForWin(board, activePlayer), 0);
 
-        //Display current player or win/tie
-        if (gameState === 'Win') {
+    }
+
+    const checkForWin = (board, activePlayer) => {
+         //Display current player or win/tie
+         if (gameState === 'Win') {
             playerTurnDiv.textContent = `${activePlayer} Wins!`;
             playAgain(board);
             return;
@@ -36,7 +40,6 @@ function screenController() {
         else {
             playerTurnDiv.textContent = `${activePlayer}'s turn...`;
         }
-
     }
 
     const playAgain = (board) => {
@@ -49,7 +52,7 @@ function screenController() {
         if (res === null) return;
 
         if (res.toLowerCase() === "yes" || res.toLowerCase() === "y") {
-            board.clearBoard();
+            game.clearBoard();
             updateScreen();
         }
 
@@ -58,7 +61,7 @@ function screenController() {
         }
     }
 
-    const displayBoard = (board) => {
+    const displayBoard = (board, checkForWin) => {
         const rows = board.length;
         const cols = board[0].length;
 
