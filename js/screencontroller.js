@@ -19,6 +19,14 @@ function screenController() {
         boardDiv.textContent = "";
         //displayBoard(board, () => checkForWin(board, activePlayer));
         displayBoard(board);
+
+        if (gameState === 'Win') {
+            playerTurnDiv.textContent = `${activePlayer} Wins!`;
+        } else if (gameState === 'Tie') {
+            playerTurnDiv.textContent = `It's a tie!`;
+        } else playerTurnDiv.textContent = `${activePlayer}'s turn...`;
+
+
         setTimeout(() => checkForWin(board, activePlayer), 0);
 
     }
@@ -26,20 +34,12 @@ function screenController() {
     const checkForWin = (board, activePlayer) => {
          //Display current player or win/tie
          if (gameState === 'Win') {
-            playerTurnDiv.textContent = `${activePlayer} Wins!`;
             playAgain(board);
             return;
-        }
-
-        else if (gameState === 'Tie') {
-            playerTurnDiv.textContent = `It's a tie!`;
+        } else if (gameState === 'Tie') {
             playAgain(board);
             return;
-        }
-
-        else {
-            playerTurnDiv.textContent = `${activePlayer}'s turn...`;
-        }
+        } else return;
     }
 
     const playAgain = (board) => {
