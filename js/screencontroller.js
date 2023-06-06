@@ -5,6 +5,7 @@ function screenController() {
     const game = GameController();
 
     //Game State
+    //Possible states: Playing, Static, Win, Tie
     let gameState = "Playing";
     
     //Get html elements
@@ -18,12 +19,14 @@ function screenController() {
         //Reset board display
         boardDiv.textContent = "";
         //displayBoard(board, () => checkForWin(board, activePlayer));
-        displayBoard(board);
+        displayBoard(board, gameState);
 
         if (gameState === 'Win') {
             playerTurnDiv.textContent = `${activePlayer} Wins!`;
         } else if (gameState === 'Tie') {
             playerTurnDiv.textContent = `It's a tie!`;
+        } else if (gameState === 'Static') {
+            playerTurnDiv.textContent = 'Thanks for playing!'
         } else playerTurnDiv.textContent = `${activePlayer}'s turn...`;
 
 
@@ -32,14 +35,9 @@ function screenController() {
     }
 
     const checkForWin = (board, activePlayer) => {
-         //Display current player or win/tie
-         if (gameState === 'Win') {
+         if (gameState === 'Win' || gameState === 'Tie') {
             playAgain(board);
-            return;
-        } else if (gameState === 'Tie') {
-            playAgain(board);
-            return;
-        } else return;
+        }
     }
 
     const playAgain = (board) => {
@@ -49,20 +47,18 @@ function screenController() {
             res = prompt("Would you like to play again? Enter 'Yes' or 'No'.");
         }
 
-        if (res === null) return;
-
-        if (res.toLowerCase() === "yes" || res.toLowerCase() === "y") {
+        if (res === null || res.toLowerCase() === "no" || res.toLowerCase() === "n") {
+            playerTurnDiv.textContent = "Thanks for playing!"
+            gameState = "Static";
+            updateScreen();
+        } else {
             game.clearBoard();
             gameState = "Playing"
             updateScreen();
         }
-
-        if (res.toLowerCase() === "no" || res.toLowerCase() === "n") {
-            playerTurnDiv.textContent = "Thanks for playing!"
-        }
     }
 
-    const displayBoard = (board, checkForWin) => {
+    const displayBoard = (board, gameState) => {
         const rows = board.length;
         const cols = board[0].length;
 
@@ -72,8 +68,11 @@ function screenController() {
                 cellButton.dataset.row = i;
                 cellButton.dataset.col = j;
                 cellButton.textContent = board[i][j].getValue();
-                cellButton.addEventListener("click", clickHandlerCell);
                 cellButton.className = 'cell';
+
+                if (gameState !== "Static") {
+                    cellButton.addEventListener("click", clickHandlerCell);
+                }
                 
                 //Draw border lines
                 if (i == 0) {
