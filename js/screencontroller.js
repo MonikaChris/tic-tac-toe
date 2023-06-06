@@ -53,8 +53,8 @@ function screenController() {
 
         if (res.toLowerCase() === "yes" || res.toLowerCase() === "y") {
             game.clearBoard();
-            updateScreen();
             gameState = "Playing"
+            updateScreen();
         }
 
         if (res.toLowerCase() === "no" || res.toLowerCase() === "n") {
