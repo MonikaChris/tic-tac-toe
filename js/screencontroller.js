@@ -46,7 +46,7 @@ function screenController() {
         let res = prompt("Would you like to play again? Enter 'Yes' or 'No'.");
 
         while (res !== null && res.toLowerCase() !== "yes" && res.toLowerCase() !== "y" && res.toLowerCase() !== "no" && res.toLowerCase() !== "n") {
-            let res = prompt("Would you like to play again? Enter 'Yes' or 'No'.");
+            res = prompt("Would you like to play again? Enter 'Yes' or 'No'.");
         }
 
         if (res === null) return;
@@ -54,6 +54,7 @@ function screenController() {
         if (res.toLowerCase() === "yes" || res.toLowerCase() === "y") {
             game.clearBoard();
             updateScreen();
+            gameState = "Playing"
         }
 
         if (res.toLowerCase() === "no" || res.toLowerCase() === "n") {
