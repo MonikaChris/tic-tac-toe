@@ -29,7 +29,7 @@ function screenController() {
             playerTurnDiv.textContent = 'Thanks for playing!'
         } else playerTurnDiv.textContent = `${activePlayer}'s turn...`;
 
-
+        //Allows board to render before asking to play again
         setTimeout(() => checkForWin(board, activePlayer), 0);
 
     }
