@@ -18,9 +18,9 @@ function screenController() {
 
         //Reset board display
         boardDiv.textContent = "";
-        //displayBoard(board, () => checkForWin(board, activePlayer));
         displayBoard(board, gameState);
 
+        //Render game state
         if (gameState === 'Win') {
             playerTurnDiv.textContent = `${activePlayer} Wins!`;
         } else if (gameState === 'Tie') {
@@ -30,14 +30,11 @@ function screenController() {
         } else playerTurnDiv.textContent = `${activePlayer}'s turn...`;
 
         //Allows board to render before asking to play again
-        setTimeout(() => checkForWin(board, activePlayer), 0);
-
-    }
-
-    const checkForWin = (board, activePlayer) => {
-         if (gameState === 'Win' || gameState === 'Tie') {
-            playAgain(board);
-        }
+        setTimeout(() => {
+            if (gameState === 'Win' || gameState === 'Tie') {
+                playAgain(board);
+            }
+        });
     }
 
     const playAgain = (board) => {
@@ -70,6 +67,7 @@ function screenController() {
                 cellButton.textContent = board[i][j].getValue();
                 cellButton.className = 'cell';
 
+                //Board is frozen if done playing
                 if (gameState !== "Static") {
                     cellButton.addEventListener("click", clickHandlerCell);
                 }
