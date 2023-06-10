@@ -39,8 +39,9 @@ function ScreenController() {
 
     const playAgain = (board) => {
         let res = prompt("Would you like to play again? Enter 'Yes' or 'No'.");
+        const validResponses = ["yes", "y", "no", "n"];
 
-        while (res !== null && res.toLowerCase() !== "yes" && res.toLowerCase() !== "y" && res.toLowerCase() !== "no" && res.toLowerCase() !== "n") {
+        while (res !== null && !validResponses.includes(res.toLowerCase())) {
             res = prompt("Would you like to play again? Enter 'Yes' or 'No'.");
         }
 
