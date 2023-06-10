@@ -1,6 +1,6 @@
 "use strict";
 
-function screenController() {
+function ScreenController() {
     //Create game instance
     const game = GameController();
 
@@ -106,4 +106,4 @@ function screenController() {
     updateScreen();
 }
 
-screenController();
+ScreenController();
