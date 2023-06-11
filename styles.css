@@ -1,3 +1,7 @@
+body {
+    background-color: rgb(102, 233, 222);
+}
+
 .container {
     display:flex;
     height: 100vh;
@@ -19,17 +23,17 @@
 }
 
 .top-cell {
-    border-top: 2px solid white;
+    border-top: 2px solid rgb(102, 233, 222);
 }
 
 .bottom-cell {
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid rgb(102, 233, 222);
 }
 
 .left-cell {
-    border-left: 2px solid white;
+    border-left: 2px solid rgb(102, 233, 222);
 }
 
 .right-cell {
-    border-right: 2px solid white;
+    border-right: 2px solid rgb(102, 233, 222);
 }
