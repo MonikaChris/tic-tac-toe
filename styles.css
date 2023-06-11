@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(102, 233, 222);
+    background-image: linear-gradient(rgba(0, 0, 255, 0.5), rgba(128, 0, 128, 0.5), rgba(255, 0, 0, 0.5), rgba(255, 166, 0, 0.5));
 }
 
 .container {
@@ -23,17 +23,17 @@ body {
 }
 
 .top-cell {
-    border-top: 2px solid rgb(102, 233, 222);
+    border-top: 2px solid transparent;
 }
 
 .bottom-cell {
-    border-bottom: 2px solid rgb(102, 233, 222);
+    border-bottom: 2px solid transparent;
 }
 
 .left-cell {
-    border-left: 2px solid rgb(102, 233, 222);
+    border-left: 2px solid transparent;
 }
 
 .right-cell {
-    border-right: 2px solid rgb(102, 233, 222);
+    border-right: transparent;
 }
