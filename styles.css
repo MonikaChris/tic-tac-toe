@@ -23,7 +23,7 @@ body {
 }
 
 .top-cell {
-    border-top: 2px solid transparent;
+    border-top: transparent;
 }
 
 .bottom-cell {
@@ -31,7 +31,7 @@ body {
 }
 
 .left-cell {
-    border-left: 2px solid transparent;
+    border-left: transparent;
 }
 
 .right-cell {
