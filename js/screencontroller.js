@@ -60,6 +60,13 @@ function ScreenController() {
         const rows = board.length;
         const cols = board[0].length;
 
+        //Freeze board if done playing, otherwise add event listener
+        if (gameState === "Static") {
+            boardDiv.removeEventListener("click", clickHandlerCell);
+        } else {
+            boardDiv.addEventListener("click", clickHandlerCell);
+        }
+
         for (let i = 0; i < rows; i++) {
             for (let j=0; j < cols; j++) {
                 const cellButton = document.createElement("div");
@@ -67,11 +74,6 @@ function ScreenController() {
                 cellButton.dataset.col = j;
                 cellButton.textContent = board[i][j].getValue();
                 cellButton.className = 'cell';
-
-                //Board is frozen if done playing
-                if (gameState !== "Static") {
-                    cellButton.addEventListener("click", clickHandlerCell);
-                }
                 
                 //Draw border lines
                 if (i == 0) {
@@ -99,6 +101,11 @@ function ScreenController() {
     const clickHandlerCell = (e) => {
         const col = e.target.dataset.col;
         const row = e.target.dataset.row;
+
+        //Confirm a cell was clicked
+        if (!row || !col){
+            return;
+        }
 
         gameState = game.playRound(row, col);
         updateScreen();
