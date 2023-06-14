@@ -1,8 +1,13 @@
 body {
     background-image: linear-gradient(rgba(7, 177, 234, 0.5), rgba(35, 111, 178, 0.5), rgba(135, 17, 144, 0.5));
+    
+}
+
+#turn {
     font-family: 'Bagel Fat One', cursive;
     font-size: 2rem;
     color: rgb(231, 11, 205);
+    margin-left: 1rem;
 }
 
 .container {
