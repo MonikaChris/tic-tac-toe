@@ -11,6 +11,8 @@ body {
 
 #board {
     display: grid;
+    column-gap: 1rem;
+    row-gap: 1rem;
 }
 
 .cell {
@@ -23,7 +25,7 @@ body {
 }
 
 .top-cell {
-    border-top: transparent;
+    border-top: 2px solid transparent;
 }
 
 .bottom-cell {
@@ -31,9 +33,9 @@ body {
 }
 
 .left-cell {
-    border-left: transparent;
+    border-left: 2px solid transparent;
 }
 
 .right-cell {
-    border-right: transparent;
+    border-right: 2px solid transparent;
 }
