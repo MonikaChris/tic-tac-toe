@@ -74,6 +74,15 @@ function ScreenController() {
                 cellButton.dataset.col = j;
                 cellButton.textContent = board[i][j].getValue();
                 cellButton.className = 'cell';
+
+                //Different colors for X and O
+                if (board[i][j].getValue() === 'X') {
+                    cellButton.classList.remove('o');
+                    cellButton.classList.add('x');
+                } else {
+                    cellButton.classList.remove('x');
+                    cellButton.classList.add('o');
+                }
                 
                 //Draw border lines
                 if (i == 0) {

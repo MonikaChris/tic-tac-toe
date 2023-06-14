@@ -1,5 +1,5 @@
 body {
-    background-image: linear-gradient(rgba(0, 0, 255, 0.5), rgba(128, 0, 128, 0.5), rgba(255, 0, 0, 0.5), rgba(255, 166, 0, 0.5));
+    background-image: linear-gradient(rgba(7, 177, 234, 0.5), rgba(35, 111, 178, 0.5), rgba(135, 17, 144, 0.5));
 }
 
 .container {
@@ -20,12 +20,20 @@ body {
 }
 
 .cell {
-    border: 2px solid black;
+    border: 3px solid rgb(231, 11, 205);
     height: 10rem;
     width: 10rem;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.x {
+    color: rgb(242, 242, 87);
+}
+
+.o {
+    color: rgb(238, 152, 33);
 }
 
 .top-cell {
