@@ -1,5 +1,7 @@
 # Tic-Tac-Toe Game
 
+[Live Site](https://monikachris.github.io/tic-tac-toe/)
+
 ## About
 
 This tic-tac-toe game is implemented with JavaScript factory functions, using closures to encapsulate and protect private data. For a modular design and separation of concerns, four functions control the game logic and display: Cell, Gameboard, GameController, ScreenController. This achieves loose coupling of components.
